@@ -1,0 +1,91 @@
+<?php $title='Administración'; include __DIR__ . '/../partials/header.phtml'; ?>
+<section class="grid">
+  <div class="col">
+    <h2>Administrar Tipos de actividades (Categorias)</h2>
+    <?php if (!empty($flash)): ?><div class="notice"><?= htmlspecialchars($flash) ?></div><?php endif; ?>
+    <form class="card" method="post" action="<?= BASE_URL ?>categoria/create" enctype="multipart/form-data">
+      <input type="hidden" name="csrf" value="<?= csrf_token() ?>">
+      <div class="field"><label>Nombre</label><input name="nombre" required></div>
+      <div class="field"><label>Imagen (archivo)</label><input type="file" name="imagen" accept="image/*"></div>
+      <div class="field"><label>Imagen (URL)</label><input name="imagen_url" placeholder="https://..."></div>
+      <div class="actions"><button>Agregar</button></div>
+    </form>
+    <ul class="list">
+      <?php foreach ($categorias as $c): ?>
+        <li class="item">
+          <div class="thumb"><?php if (!empty($c['imagen'])): ?><img src="<?= BASE_URL . 'public/' . htmlspecialchars($c['imagen']) ?>" alt=""><?php endif; ?></div>
+          <div class="grow"><strong><?= htmlspecialchars($c['nombre']) ?></strong></div>
+          <form class="inline" method="post" action="<?= BASE_URL ?>categoria/delete" onsubmit="return confirm('¿Eliminar categoría y sus actividades?')">
+            <input type="hidden" name="csrf" value="<?= csrf_token() ?>"><input type="hidden" name="id" value="<?= (int)$c['id'] ?>"><button class="danger">Eliminar</button>
+          </form>
+          <details><summary>Editar</summary>
+            <form method="post" action="<?= BASE_URL ?>categoria/edit" enctype="multipart/form-data">
+              <input type="hidden" name="csrf" value="<?= csrf_token() ?>"><input type="hidden" name="id" value="<?= (int)$c['id'] ?>">
+              <div class="field"><label>Nombre</label><input name="nombre" value="<?= htmlspecialchars($c['nombre']) ?>" required></div>
+              <div class="field"><label>Nueva imagen (archivo)</label><input type="file" name="imagen" accept="image/*"></div>
+              <div class="field"><label>Nueva imagen (URL)</label><input name="imagen_url" placeholder="https://..."></div>
+              <div class="actions"><button>Guardar</button></div>
+            </form>
+          </details>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+  <div class="col">
+    <h2>Administrar Actividades (Items dentro de una categoria)</h2>
+    <form class="card" method="get" action="<?= BASE_URL ?>admin">
+      <div class="field"><label>Filtrar por categoría</label>
+        <select name="categoria_id" onchange="this.form.submit()">
+          <option value="">(todas)</option>
+          <?php foreach ($categorias as $c): ?>
+            <option value="<?= (int)$c['id'] ?>" <?= isset($_GET['categoria_id']) && (int)$_GET['categoria_id']===(int)$c['id'] ? 'selected' : '' ?>><?= htmlspecialchars($c['nombre']) ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+    </form>
+
+    <form class="card" method="post" action="<?= BASE_URL ?>actividad/create" enctype="multipart/form-data">
+      <input type="hidden" name="csrf" value="<?= csrf_token() ?>">
+      <div class="field"><label>Nombre</label><input name="nombre" required></div>
+      <div class="field"><label>Categoría</label>
+        <select name="categoria_id" required>
+          <option value="">--</option>
+          <?php foreach ($categorias as $c): ?><option value="<?= (int)$c['id'] ?>"><?= htmlspecialchars($c['nombre']) ?></option><?php endforeach; ?>
+        </select>
+      </div>
+      <div class="field"><label>Imagen (archivo)</label><input type="file" name="imagen" accept="image/*"></div>
+      <div class="field"><label>Imagen (URL)</label><input name="imagen_url" placeholder="https://..."></div>
+      <div class="actions"><button>Agregar</button></div>
+    </form>
+
+    <ul class="list">
+      <?php foreach ($actividades as $a): ?>
+        <li class="item">
+          <div class="thumb"><?php if (!empty($a['imagen'])): ?><img src="<?= BASE_URL . 'public/' . htmlspecialchars($a['imagen']) ?>" alt=""><?php endif; ?></div>
+          <div class="grow">
+            <strong><a href="<?= BASE_URL ?>actividad/<?= (int)$a['id'] ?>"><?= htmlspecialchars($a['nombre']) ?></a></strong>
+            <small>Categoría: <a href="<?= BASE_URL ?>categoria/<?= (int)$a['categoria_id'] ?>"><?= htmlspecialchars($a['categoria']) ?></a></small>
+          </div>
+          <form class="inline" method="post" action="<?= BASE_URL ?>actividad/delete" onsubmit="return confirm('¿Eliminar actividad?')">
+            <input type="hidden" name="csrf" value="<?= csrf_token() ?>"><input type="hidden" name="id" value="<?= (int)$a['id'] ?>"><button class="danger">Eliminar</button>
+          </form>
+          <details><summary>Editar</summary>
+            <form method="post" action="<?= BASE_URL ?>actividad/edit" enctype="multipart/form-data">
+              <input type="hidden" name="csrf" value="<?= csrf_token() ?>"><input type="hidden" name="id" value="<?= (int)$a['id'] ?>">
+              <div class="field"><label>Nombre</label><input name="nombre" value="<?= htmlspecialchars($a['nombre']) ?>" required></div>
+              <div class="field"><label>Categoría</label>
+                <select name="categoria_id" required>
+                  <?php foreach ($categorias as $c): ?><option value="<?= (int)$c['id'] ?>" <?= ((int)$c['id']===(int)$a['categoria_id'])?'selected':'' ?>><?= htmlspecialchars($c['nombre']) ?></option><?php endforeach; ?>
+                </select>
+              </div>
+              <div class="field"><label>Nueva imagen (archivo)</label><input type="file" name="imagen" accept="image/*"></div>
+              <div class="field"><label>Nueva imagen (URL)</label><input name="imagen_url" placeholder="https://..."></div>
+              <div class="actions"><button>Guardar</button></div>
+            </form>
+          </details>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+</section>
+<?php include __DIR__ . '/../partials/footer.phtml'; ?>

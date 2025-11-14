@@ -1,0 +1,23 @@
+<?php ?><!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title><?= htmlspecialchars($title ?? 'Gym MVC') ?></title>
+<link rel="stylesheet" href="<?= BASE_URL ?>public/Style/Style.css">
+</head><body>
+<header class="topbar">
+  <div class="container">
+    <div>
+      <strong><a href="<?= BASE_URL ?>">STATION-GYM</a></strong>
+    </div>
+    <nav>
+      <a href="<?= BASE_URL ?>categorias">Tipos de actividades</a>
+      <?php if (is_logged_in()): ?>
+        <a href="<?= BASE_URL ?>admin">Admin</a>
+        <a href="<?= BASE_URL ?>logout">Salir (<?= htmlspecialchars($_SESSION['user']['username'] ?? '') ?>)</a>
+      <?php else: ?>
+        <a href="<?= BASE_URL ?>login">Login</a>
+      <?php endif; ?>
+    </nav>
+  </div>
+</header>
+<main class="container">

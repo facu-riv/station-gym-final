@@ -1,0 +1,26 @@
+<?php $title='Tipos de actividades'; include __DIR__ . '/../partials/header.phtml'; ?>
+<h1 class="section-title">Tipos de actividades</h1>
+
+<ul class="list">
+  <?php foreach ($categorias as $c): ?>
+    <li class="item">
+      <div class="thumb">
+        <?php if (!empty($c['imagen'])): ?>
+          <img src="<?= BASE_URL . 'public/' . htmlspecialchars($c['imagen']) ?>" alt="">
+        <?php else: ?>
+          <img src="<?= BASE_URL ?>public/Style/placeholder.png" alt="">
+        <?php endif; ?>
+      </div>
+      <div class="grow">
+        <strong>
+          <a href="<?= BASE_URL ?>categoria/<?= (int)$c['id'] ?>">
+            <?= htmlspecialchars($c['nombre']) ?>
+          </a>
+        </strong>
+        <small>Tipo de actividad</small>
+      </div>
+    </li>
+  <?php endforeach; ?>
+</ul>
+
+<?php include __DIR__ . '/../partials/footer.phtml'; ?>

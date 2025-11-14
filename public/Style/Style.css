@@ -1,0 +1,157 @@
+/* StationGym-like visual style for TPE-Gym-MVC (views+css only) */
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; }
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:#f7f7fb;
+  color:#222;
+}
+
+/* Layout */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Navbar with blue -> orange gradient */
+.topbar {
+  background: linear-gradient(90deg, #1e3a8a 0%, #f97316 100%);
+  color: #fff;
+}
+.topbar .container {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.topbar a {
+  color:#fff;
+  text-decoration:none;
+  margin-right:12px;
+  font-weight:500;
+}
+.topbar a:hover {
+  text-decoration:underline;
+}
+
+.footer {
+  margin-top:32px;
+  padding:16px 0;
+  text-align:center;
+  color:#666;
+  border-top:1px solid #e5e7eb;
+}
+
+/* Titles */
+.section-title, h1, h2 {
+  margin: 12px 0;
+}
+.section-title {
+  font-size:1.4rem;
+  font-weight:700;
+}
+
+/* Cards in grid: 2 per row on desktop */
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding:0;
+  margin:0;
+  list-style:none;
+}
+.item {
+  display:flex;
+  flex-direction:column;   /* image on top, text below */
+  border-radius:12px;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  overflow:hidden;
+  box-shadow:0 2px 4px rgba(0,0,0,.04);
+}
+.thumb {
+  width:100%;
+  height:200px;
+  flex:0 0 auto;
+  background:#f4f4f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.thumb img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.grow {
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  padding:12px 14px 14px;
+}
+.grow strong {
+  font-size:1.05rem;
+}
+.grow small {
+  color:#666;
+}
+
+/* Forms/buttons (for login/admin compatibility, though not touched here) */
+.field {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin:10px 0;
+}
+input[type=text],
+input[type=password],
+select {
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+.actions {
+  display:flex;
+  gap:10px;
+}
+button {
+  padding:10px 14px;
+  border:none;
+  border-radius:8px;
+  background:#2f6fed;
+  color:#fff;
+  cursor:pointer;
+}
+button:hover {
+  filter:brightness(.95);
+}
+.alert {
+  background:#ffe6e6;
+  color:#a40000;
+  border:1px solid #ffcccc;
+  padding:10px;
+  border-radius:8px;
+  margin:10px 0;
+}
+.notice {
+  background:#eef7ff;
+  color:#084b99;
+  border:1px solid #cfe3ff;
+  padding:10px;
+  border-radius:8px;
+  margin:10px 0;
+}
+
+/* Responsive: 1 per row on mobile */
+@media (max-width: 768px){
+  .list {
+    grid-template-columns: 1fr;
+  }
+  .thumb {
+    height:180px;
+  }
+}

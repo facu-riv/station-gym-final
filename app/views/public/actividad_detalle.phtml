@@ -1,0 +1,22 @@
+<?php $title='Detalle de actividad'; include __DIR__ . '/../partials/header.phtml'; ?>
+<h1 class="section-title"><?= htmlspecialchars($actividad['nombre']) ?></h1>
+
+<div class="item" style="max-width:420px; margin-top:12px;">
+  <div class="thumb" style="height:220px;">
+    <?php if (!empty($actividad['imagen'])): ?>
+      <img src="<?= BASE_URL . 'public/' . htmlspecialchars($actividad['imagen']) ?>" alt="">
+    <?php else: ?>
+      <img src="<?= BASE_URL ?>public/Style/placeholder.png" alt="">
+    <?php endif; ?>
+  </div>
+  <div class="grow">
+    <small>
+      Tipo de actividad:
+      <a href="<?= BASE_URL ?>categoria/<?= (int)$actividad['categoria_id'] ?>">
+        <?= htmlspecialchars($actividad['categoria']) ?>
+      </a>
+    </small>
+  </div>
+</div>
+
+<?php include __DIR__ . '/../partials/footer.phtml'; ?>
