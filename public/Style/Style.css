@@ -1,4 +1,3 @@
-/* StationGym-like visual style for TPE-Gym-MVC (views+css only) */
 * { box-sizing: border-box; }
 html, body { margin:0; padding:0; }
 body {
@@ -7,14 +6,12 @@ body {
   color:#222;
 }
 
-/* Layout */
 .container {
   max-width: 1000px;
   margin: 0 auto;
   padding: 16px;
 }
 
-/* Navbar with blue -> orange gradient */
 .topbar {
   background: linear-gradient(90deg, #1e3a8a 0%, #f97316 100%);
   color: #fff;
@@ -43,7 +40,6 @@ body {
   border-top:1px solid #e5e7eb;
 }
 
-/* Titles */
 .section-title, h1, h2 {
   margin: 12px 0;
 }
@@ -52,7 +48,6 @@ body {
   font-weight:700;
 }
 
-/* Cards in grid: 2 per row on desktop */
 .list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -63,7 +58,7 @@ body {
 }
 .item {
   display:flex;
-  flex-direction:column;   /* image on top, text below */
+  flex-direction:column;
   border-radius:12px;
   border:1px solid #e5e7eb;
   background:#fff;
@@ -100,7 +95,6 @@ body {
   color:#666;
 }
 
-/* Forms/buttons (for login/admin compatibility, though not touched here) */
 .field {
   display:flex;
   flex-direction:column;
@@ -146,7 +140,6 @@ button:hover {
   margin:10px 0;
 }
 
-/* Responsive: 1 per row on mobile */
 @media (max-width: 768px){
   .list {
     grid-template-columns: 1fr;
